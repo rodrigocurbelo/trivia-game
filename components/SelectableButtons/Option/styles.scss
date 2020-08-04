@@ -1,0 +1,22 @@
+@import '../../../shared/styles/constants/colors';
+
+.container {
+  width: 400px;
+  cursor: pointer;
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 7px;
+  background-color: $secondary-color;
+  box-shadow: 1px 3px 10px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: $secondary-color-lighter;
+  }
+
+  @media only screen and (max-width: 480px) {
+    width: 300px;
+  }
+}

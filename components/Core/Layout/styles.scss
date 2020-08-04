@@ -1,0 +1,13 @@
+@import '../../../shared/styles/constants/colors';
+
+body {
+  color: $text-color;
+  margin: 0;
+  overflow: hidden;
+  font-family: 'Roboto';
+}
+
+.container {
+  height: 100vh;
+  background-color: $primary-color;
+}
