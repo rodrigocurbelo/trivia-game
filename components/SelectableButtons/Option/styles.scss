@@ -14,8 +14,14 @@
   box-shadow: 1px 3px 10px rgba(0, 0, 0, 0.2);
   transition: background-color 0.3s;
 
-  &:hover {
+  &:hover, &.selected {
     background-color: $secondary-color-lighter;
+  }
+
+  &.selected {
+    border-width: 2px;
+    border-style: solid;
+    border-color: $text-color;
   }
 
   @media only screen and (max-width: 480px) {
