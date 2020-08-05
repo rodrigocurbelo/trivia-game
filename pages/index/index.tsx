@@ -11,7 +11,7 @@ export default function Home() {
     <Layout>
       <Main>
         <Spacing bottom={2}>
-          <Title>
+          <Title centered>
             How well do you know your <b>world</b>
           </Title>
         </Spacing>

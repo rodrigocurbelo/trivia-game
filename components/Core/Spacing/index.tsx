@@ -2,7 +2,7 @@
 // magic numbers flying around), we should use this component as a wrapper
 // to get spacing that will always remain coherent.
 // In case spacing has to be defined from a .scss file, there is another
-// constant you can refer to (defined in shared/styles/constants.scss).
+// constant you can refer to (defined in shared/styles/constants/_spacing.scss).
 
 import React from 'react';
 
