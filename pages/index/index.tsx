@@ -22,7 +22,6 @@ export default function Home() {
 
         <Option text="Flags" onClick={() => router.push(routes.FLAGS)} />
         <Option text="Capitals" onClick={() => router.push(routes.CAPITALS)} />
-        <Option text="Find the anomaly" />
       </Main>
     </Layout>
   );
