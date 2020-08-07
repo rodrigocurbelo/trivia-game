@@ -15,7 +15,6 @@ export default function Flags({
   loadCountries,
   setOptionSelection,
   multipleOptionsGame: {
-    pristine,
     countries,
     validated,
     winnerContinent,
@@ -29,12 +28,10 @@ export default function Flags({
   const router = useRouter();
 
   const isItWrong = country => {
-    if (selectedOptions[country.id] && country.continentName !== winnerContinent
-       || !selectedOptions[country.id] && country.continentName === winnerContinent) {
-      return true;
-    }
-
-    return false;
+    return (selectedOptions[country.id]
+      && country.continentName !== winnerContinent)
+      || (!selectedOptions[country.id]
+      && country.continentName === winnerContinent);
   };
 
   const getCountryText = country => (
@@ -55,32 +52,32 @@ export default function Flags({
           )}
         </Spacing>
 
-        <div className={styles.flagsContainer}>
-          {countries.map(country => (
-            <Flag
-              key={country.id}
-              wrong={validated && (isItWrong(country))}
-              hideText={!validated}
-              disabled={validated}
-              selected={selectedOptions[country.id]}
-              alpha2Code={country.alpha2Code}
-              onClick={() => setOptionSelection(
-                country.id,
-                !selectedOptions[country.id]
-              )}
-            >
-              {getCountryText(country)}
-            </Flag>
-          ))}
+        <div className={styles.flagsWrapper}>
+          <div className={styles.flagsContainer}>
+            {countries.map(country => (
+              <Flag
+                key={country.id}
+                wrong={validated && (isItWrong(country))}
+                hideText={!validated}
+                disabled={validated}
+                selected={selectedOptions[country.id]}
+                alpha2Code={country.alpha2Code}
+                onClick={() => setOptionSelection(
+                  country.id,
+                  !selectedOptions[country.id]
+                )}
+              >
+                {getCountryText(country)}
+              </Flag>
+            ))}
+          </div>
         </div>
 
-        {!pristine && (
-          <ContinueButton
-            onValidateClick={() => setValidated(true)}
-            onContinueClick={() => router.push(routes.MENU)}
-            isValidate={!validated}
-          />
-        )}
+        <ContinueButton
+          onValidateClick={() => setValidated(true)}
+          onContinueClick={() => router.push(routes.MENU)}
+          isValidate={!validated}
+        />
       </Main>
     </Layout>
   );

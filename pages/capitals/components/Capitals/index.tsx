@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
+import styles from './styles.scss';
 import Main from '../../../../components/Core/Main';
 import Title from '../../../../components/Core/Title';
 import Layout from '../../../../components/Core/Layout';
@@ -14,7 +15,6 @@ export default function Capitals({
   loadCountries,
   setOptionSelection,
   multipleOptionsGame: {
-    pristine,
     countries,
     validated,
     winnerContinent,
@@ -33,12 +33,8 @@ export default function Capitals({
   const isItWrong = country => {
     const isItSelected = selectedOptions[country.id];
 
-    if (isItSelected && country.continentName !== winnerContinent
-       || !isItSelected && country.continentName === winnerContinent) {
-      return true;
-    }
-
-    return false;
+    return (isItSelected && country.continentName !== winnerContinent)
+       || (!isItSelected && country.continentName === winnerContinent);
   };
 
   return (
@@ -52,35 +48,37 @@ export default function Capitals({
           )}
         </Spacing>
 
-        {countries.map(country => (
-          <Option
-            key={country.id}
-            wrong={validated && wrongId === country.id}
-            disabled={validated}
-            selected={selectedOptions[country.id]}
-            centeredText
-            onClick={() => setOptionSelection(
-              country.id,
-              !selectedOptions[country.id]
-            )}
-          >
-            {country.capital}
+        <div className={styles.optionsWrapper}>
+          <div className={styles.optionsContainer}>
+            {countries.map(country => (
+              <Option
+                key={country.id}
+                wrong={validated && wrongId === country.id}
+                disabled={validated}
+                selected={selectedOptions[country.id]}
+                centeredText
+                onClick={() => setOptionSelection(
+                  country.id,
+                  !selectedOptions[country.id]
+                )}
+              >
+                {country.capital}
 
-            {validated && (
-              isItWrong(country)
-                ? <b>{getCountryText(country)}</b>
-                : getCountryText(country)
-            )}
-          </Option>
-        ))}
+                {validated && (
+                  isItWrong(country)
+                    ? <b>{getCountryText(country)}</b>
+                    : getCountryText(country)
+                )}
+              </Option>
+            ))}
+          </div>
+        </div>
 
-        {!pristine && (
-          <ContinueButton
-            onValidateClick={() => setValidated(true)}
-            onContinueClick={() => router.push(routes.MENU)}
-            isValidate={!validated}
-          />
-        )}
+        <ContinueButton
+          onValidateClick={() => setValidated(true)}
+          onContinueClick={() => router.push(routes.MENU)}
+          isValidate={!validated}
+        />
       </Main>
     </Layout>
   );

@@ -1,0 +1,12 @@
+@import '../../../../shared/styles/constants/options';
+
+.optionsWrapper {
+  overflow-y: auto;
+}
+
+.optionsContainer {
+  display: flex;
+  max-width: $option-width * 2.5;
+  flex-wrap: wrap;
+  justify-content: center;
+}

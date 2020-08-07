@@ -48,7 +48,6 @@ export function restartMultipleOptionsGame() {
 
 const initialState = {
   countries: [],
-  pristine: true,
   validated: false,
   selectedOptions: {},
   winnerContinent: null,
@@ -59,7 +58,6 @@ export default function (state = initialState, action) {
     case CHANGE_SELECTED_OPTIONS:
       return {
         ...state,
-        pristine: false,
         selectedOptions: action.payload,
       };
 

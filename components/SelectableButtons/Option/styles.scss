@@ -1,8 +1,9 @@
 @import '../../../shared/styles/constants/colors';
+@import '../../../shared/styles/constants/options';
 @import '../../../shared/styles/selectable-button';
 
 .container {
-  width: 400px;
+  width: $option-width;
   padding: 10px;
   display: flex;
   min-height: 52px;
@@ -32,6 +33,6 @@
   }
 
   @media only screen and (max-width: 480px) {
-    width: 300px;
+    width: $option-width-on-mobile;
   }
 }
