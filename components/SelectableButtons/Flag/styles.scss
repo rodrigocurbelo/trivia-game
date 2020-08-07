@@ -1,0 +1,50 @@
+@import '../../../shared/styles/constants/flags';
+@import '../../../shared/styles/constants/colors';
+@import '../../../shared/styles/constants/animations';
+@import '../../../shared/styles/selectable-button';
+
+.container {
+  width: $flag-width;
+  display: flex;
+  opacity: .8;
+  transform: scale(.95);
+  align-items: center;
+  justify-content: center;
+  @include selectable-button;
+
+  &.selected {
+    transform: scale(1);
+  }
+
+  &.selected:not(.wrong) {
+    opacity: 1;
+  }
+
+  &:not(.disabled):hover {
+    transform: scale(.975);
+  }
+
+  > .flag {
+    width: $flag-width;
+    border-radius: $selectable-border-radius;
+  }
+}
+
+.textContainer {
+  width: $flag-width;
+  animation: enter-from-bottom .3s forwards;
+
+  > p {
+    animation: text-increase-height 2s forwards;
+  }
+}
+
+@keyframes text-increase-height {
+  from {
+    max-height: 0;
+  }
+
+  to {
+    max-height: 100px;
+  }
+}

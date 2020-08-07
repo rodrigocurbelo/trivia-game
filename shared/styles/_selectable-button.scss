@@ -1,0 +1,25 @@
+@import './constants/colors';
+@import './constants/shadows';
+
+$selectable-border-radius: 5px;
+
+@mixin selectable-button {
+  border-width: 2px;
+  border-style: solid;
+  border-color: transparent;
+  border-radius: $selectable-border-radius;
+  transition: background-color .3s, opacity .3s, transform .3s, border-color .3s;
+  @include large-shadow;
+
+  &.selected {
+    border-color: $text-color;
+  }
+
+  &.wrong {
+    opacity: .6;
+  }
+
+  &:not(.disabled) {
+    cursor: pointer;
+  }
+}

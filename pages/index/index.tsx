@@ -20,7 +20,7 @@ export default function Home() {
           </Title>
         </Spacing>
 
-        <Option text="Flags" />
+        <Option text="Flags" onClick={() => router.push(routes.FLAGS)} />
         <Option text="Capitals" onClick={() => router.push(routes.CAPITALS)} />
         <Option text="Find the anomaly" />
       </Main>

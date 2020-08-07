@@ -1,40 +1,23 @@
 @import '../../../shared/styles/constants/colors';
-@import '../../../shared/styles/constants/shadows';
+@import '../../../shared/styles/selectable-button';
 
 .container {
   width: 400px;
-  min-height: 52px;
   padding: 10px;
-  box-sizing: border-box;
   display: flex;
+  min-height: 52px;
+  box-sizing: border-box;
   align-items: center;
   justify-content: center;
-  border-radius: 5px;
-  border-width: 2px;
-  border-style: solid;
-  border-color: transparent;
   background-color: $secondary-color;
-  transition: background-color .3s, opacity .3s, border-color .3s;
-  @include large-shadow;
+  @include selectable-button;
 
   &.selected {
     background-color: $secondary-color-lighter;
   }
 
-  &.wrong {
-    opacity: .6;
-  }
-
-  &.selected {
-    border-color: $text-color;
-  }
-
-  &:not(.disabled) {
-    cursor: pointer;
-
-    &:hover {
-      background-color: $secondary-color-lighter;
-    }
+  &:not(.disabled):hover {
+    background-color: $secondary-color-lighter;
   }
 
   @media only screen and (max-width: 480px) {
