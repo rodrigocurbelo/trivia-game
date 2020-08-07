@@ -28,7 +28,9 @@ export default function Option({
   return (
     <Spacing allSides={2}>
       <div
-        {...onClickAndEnterPress(() => !disabled && onClick())}
+        {...onClickAndEnterPress(
+          () => !disabled && onClick(), disabled ? -1 : 0)
+        }
         className={
           classNames(
             styles.container,
