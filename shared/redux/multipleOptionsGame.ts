@@ -1,8 +1,27 @@
 import { Dispatch } from 'redux';
 
+import { getCountriesAndContinentWinner } from '../networking/countries/flags';
+
+const LOAD_DATA = 'multipleOptionsGame/LOAD_DATA';
 const RESTART_GAME = 'multipleOptionsGame/RESTART_GAME';
 const CHANGE_VALIDATION = 'multipleOptionsGame/CHANGE_VALIDATION';
 const CHANGE_SELECTED_OPTIONS = 'multipleOptionsGame/CHANGE_SELECTED_OPTIONS';
+
+export function loadCountries() {
+  return dispatch => {
+    if (process.browser) {
+      return getCountriesAndContinentWinner().then(data => {
+        dispatch({
+          type: LOAD_DATA,
+          payload: {
+            countries: data.countries,
+            winnerContinent: data.winnerContinent,
+          },
+        });
+      });
+    }
+  };
+}
 
 export function setOptionSelection(id: string, selected: boolean) {
   return (dispatch: Dispatch, getState) => {
@@ -28,9 +47,11 @@ export function restartMultipleOptionsGame() {
 }
 
 const initialState = {
+  countries: [],
   pristine: true,
   validated: false,
   selectedOptions: {},
+  winnerContinent: null,
 };
 
 export default function (state = initialState, action) {
@@ -40,6 +61,12 @@ export default function (state = initialState, action) {
         ...state,
         pristine: false,
         selectedOptions: action.payload,
+      };
+
+    case LOAD_DATA:
+      return {
+        ...state,
+        ...action.payload,
       };
 
     case CHANGE_VALIDATION:

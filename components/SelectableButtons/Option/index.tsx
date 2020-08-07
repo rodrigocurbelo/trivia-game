@@ -42,7 +42,7 @@ export default function Option({
           )
         }
       >
-        {children || <Text centered={centeredText}>{text}</Text>}
+        <Text centered={centeredText}>{children || text}</Text>
       </div>
     </Spacing>
   );

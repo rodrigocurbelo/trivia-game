@@ -11,38 +11,36 @@ import * as routes from '../../../../shared/constants/routes';
 import Flag from '../../../../components/SelectableButtons/Flag';
 
 export default function Flags({
-  loadFlags,
   setValidated,
+  loadCountries,
   setOptionSelection,
-  flags: {
-    flags,
-    winnerContinent,
-  },
   multipleOptionsGame: {
-    selectedOptions,
     pristine,
+    countries,
     validated,
+    winnerContinent,
+    selectedOptions,
   },
 }) {
   useEffect(() => {
-    loadFlags();
-  }, [ loadFlags ]);
+    loadCountries();
+  }, [ loadCountries ]);
 
   const router = useRouter();
 
-  const isItWrong = flag => {
-    if (selectedOptions[flag.id] && flag.continentName !== winnerContinent
-       || !selectedOptions[flag.id] && flag.continentName === winnerContinent) {
+  const isItWrong = country => {
+    if (selectedOptions[country.id] && country.continentName !== winnerContinent
+       || !selectedOptions[country.id] && country.continentName === winnerContinent) {
       return true;
     }
 
     return false;
   };
 
-  const getCountryText = flag => (
+  const getCountryText = country => (
     <>
-      {flag.name}
-      <b>, {flag.continentName}</b>
+      {country.name}
+      <b>, {country.continentName}</b>
     </>
   );
 
@@ -58,20 +56,20 @@ export default function Flags({
         </Spacing>
 
         <div className={styles.flagsContainer}>
-          {flags.map(flag => (
+          {countries.map(country => (
             <Flag
-              key={flag.id}
-              wrong={validated && (isItWrong(flag))}
+              key={country.id}
+              wrong={validated && (isItWrong(country))}
               hideText={!validated}
               disabled={validated}
-              selected={selectedOptions[flag.id]}
-              alpha2Code={flag.alpha2Code}
+              selected={selectedOptions[country.id]}
+              alpha2Code={country.alpha2Code}
               onClick={() => setOptionSelection(
-                flag.id,
-                !selectedOptions[flag.id]
+                country.id,
+                !selectedOptions[country.id]
               )}
             >
-              {getCountryText(flag)}
+              {getCountryText(country)}
             </Flag>
           ))}
         </div>

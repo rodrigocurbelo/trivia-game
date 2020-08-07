@@ -14,7 +14,10 @@ export default function Text({ centered, uppercase, children }: Props) {
     <p
       className={classNames(
         styles.text,
-        { [styles.centered]: centered, [styles.uppercase]: uppercase }
+        {
+          [styles.centered]: centered,
+          [styles.uppercase]: uppercase,
+        },
       )}
     >
       {children}

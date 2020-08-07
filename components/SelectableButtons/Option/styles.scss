@@ -11,13 +11,24 @@
   justify-content: center;
   background-color: $secondary-color;
   @include selectable-button;
+  // This is necessary for the animation to work when focus.
+  // It's essentialy meant to help keyboard-only users.
+  transform: scale(1);
 
   &.selected {
     background-color: $secondary-color-lighter;
   }
 
-  &:not(.disabled):hover {
+  &:not(.disabled):hover, &:focus {
     background-color: $secondary-color-lighter;
+  }
+
+  &:focus, &.selected {
+    transform: scale(1.025) !important;
+  }
+
+  &:focus {
+    outline: 0;
   }
 
   @media only screen and (max-width: 480px) {

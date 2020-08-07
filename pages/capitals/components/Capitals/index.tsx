@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 import Main from '../../../../components/Core/Main';
@@ -11,47 +11,65 @@ import * as routes from '../../../../shared/constants/routes';
 
 export default function Capitals({
   setValidated,
+  loadCountries,
   setOptionSelection,
-  capitals: {
-    capitals,
-  },
   multipleOptionsGame: {
-    selectedOptions,
     pristine,
+    countries,
     validated,
+    winnerContinent,
+    selectedOptions,
   },
 }) {
+  useEffect(() => {
+    loadCountries();
+  }, [ loadCountries ]);
+
   const router = useRouter();
-  const getCountryText = city => `, ${city.country}`;
+  const getCountryText = country => `, ${country.name}, ${country.continentName}`;
 
   const wrongId = 1;
+
+  const isItWrong = country => {
+    const isItSelected = selectedOptions[country.id];
+
+    if (isItSelected && country.continentName !== winnerContinent
+       || !isItSelected && country.continentName === winnerContinent) {
+      return true;
+    }
+
+    return false;
+  };
 
   return (
     <Layout>
       <Main>
         <Spacing bottom={2}>
-          <Title centered>
-            Which capitals belong in <b>Europe</b>
-          </Title>
+          {winnerContinent && (
+            <Title centered>
+              Which capitals belong in <b>{winnerContinent}</b>
+            </Title>
+          )}
         </Spacing>
 
-        {capitals.map(city => (
+        {countries.map(country => (
           <Option
-            key={city.id}
-            wrong={validated && wrongId === city.id}
+            key={country.id}
+            wrong={validated && wrongId === country.id}
             disabled={validated}
-            selected={selectedOptions[city.id]}
+            selected={selectedOptions[country.id]}
+            centeredText
             onClick={() => setOptionSelection(
-              city.id,
-              !selectedOptions[city.id]
+              country.id,
+              !selectedOptions[country.id]
             )}
           >
-            {city.name}
+            {country.capital}
 
             {validated && (
-              wrongId === city.id
-                ? <b>{getCountryText(city)}</b>
-                : getCountryText(city)
+              isItWrong(country)
+                ? <b>{getCountryText(country)}</b>
+                : getCountryText(country)
             )}
           </Option>
         ))}
