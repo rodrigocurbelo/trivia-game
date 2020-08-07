@@ -1,5 +1,6 @@
 @import './constants/colors';
 @import './constants/shadows';
+@import './constants/animations';
 
 $selectable-border-radius: 5px;
 
@@ -9,7 +10,12 @@ $selectable-border-radius: 5px;
   border-color: transparent;
   border-radius: $selectable-border-radius;
   transition: background-color .3s, opacity .3s, transform .3s, border-color .3s;
+  animation: enter-from-bottom .3s .5s forwards;
   @include large-shadow;
+
+  // As the animation has a delay, we need to define the same properties that
+  // we would in the 'from'/0% of a keyframe.
+  @include enter-from-bottom-from-mixin;
 
   &.selected {
     border-color: $text-color;

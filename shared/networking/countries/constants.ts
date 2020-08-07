@@ -1,0 +1,46 @@
+export const CONTINENTS = {
+  asia: 'Asia',
+  africa: 'Africa',
+  europe: 'Europe',
+  southAmerica: 'South America',
+  centralAmerica: 'Central America',
+  northAmerica: 'North America',
+};
+
+export const FILTER_BY_CONTINENT = {
+  'Asia': { regionalBlocs: { name_contains: 'Asia' } },
+  'Africa': { regionalBlocs: { name_contains: 'Africa' } },
+  'Europe': { regionalBlocs: { name_contains: 'Europe' } },
+  'South America': { regionalBlocs: { name_contains: 'South America' } },
+  'Central America': { regionalBlocs: { name_contains: 'Central America' } },
+  'North America': { regionalBlocs: { name_contains: 'North America' } },
+};
+
+export const LIST_OF_COUNTRY_ORDER_BY = [
+  '_id_asc',
+  '_id_desc',
+  'alpha2Code_asc',
+  'alpha2Code_desc',
+  'alpha3Code_asc',
+  'alpha3Code_desc',
+  'area_asc',
+  'area_desc',
+  'capital_asc',
+  'capital_desc',
+  'populationDensity_asc',
+  'populationDensity_desc',
+  'demonym_asc',
+  'demonym_desc',
+  'gini_asc',
+  'gini_desc',
+  'name_asc',
+  'name_desc',
+  'nameTranslation_asc',
+  'nameTranslation_desc',
+  'nativeName_asc',
+  'nativeName_desc',
+  'numericCode_asc',
+  'numericCode_desc',
+  'population_asc',
+  'population_desc',
+];

@@ -14,7 +14,8 @@ type Props = {
   hideText?: boolean;
   selected?: boolean;
   disabled?: boolean;
-  countryCode: string;
+  children?: React.ReactNode;
+  alpha2Code: string;
 };
 
 export default function Flag({
@@ -22,12 +23,13 @@ export default function Flag({
   wrong,
   onClick,
   hideText,
+  children,
   disabled,
   selected,
-  countryCode,
+  alpha2Code,
 }: Props) {
   return (
-    <Spacing allSides={2}>
+    <Spacing allSides={2} classNameContainer={styles.wrapper}>
       <div
         {...onClickAndEnterPress(
           () => !disabled && onClick(), disabled ? -1 : 0)
@@ -45,7 +47,7 @@ export default function Flag({
       >
         <img
           alt="Flag"
-          src={flagUrl(countryCode)}
+          src={flagUrl(alpha2Code)}
           className={styles.flag}
         />
       </div>
@@ -54,7 +56,7 @@ export default function Flag({
         {!hideText && (
           <Spacing top={selected && 1}>
             <div className={styles.textContainer}>
-              <Text centered>{text}</Text>
+              <Text centered>{children || text}</Text>
             </div>
           </Spacing>
         )}

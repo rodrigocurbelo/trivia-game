@@ -3,6 +3,12 @@
 @import '../../../shared/styles/constants/animations';
 @import '../../../shared/styles/selectable-button';
 
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .container {
   width: $flag-width;
   display: flex;
@@ -13,14 +19,16 @@
   @include selectable-button;
 
   &.selected {
-    transform: scale(1);
+    transform: scale(1) !important;
   }
 
   &.selected:not(.wrong) {
     opacity: 1;
   }
 
-  &:not(.disabled):hover {
+  &:not(.disabled):hover, &:focus {
+    outline: 0;
+    opacity: 1;
     transform: scale(.975);
   }
 

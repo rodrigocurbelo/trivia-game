@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 import styles from './styles.scss';
@@ -11,10 +11,12 @@ import * as routes from '../../../../shared/constants/routes';
 import Flag from '../../../../components/SelectableButtons/Flag';
 
 export default function Flags({
+  loadFlags,
   setValidated,
   setOptionSelection,
   flags: {
     flags,
+    winnerContinent,
   },
   multipleOptionsGame: {
     selectedOptions,
@@ -22,39 +24,55 @@ export default function Flags({
     validated,
   },
 }) {
-  const router = useRouter();
-  const getCountryText = flag => flag.country;
+  useEffect(() => {
+    loadFlags();
+  }, [ loadFlags ]);
 
-  const wrongId = 1;
+  const router = useRouter();
+
+  const isItWrong = flag => {
+    if (selectedOptions[flag.id] && flag.continentName !== winnerContinent
+       || !selectedOptions[flag.id] && flag.continentName === winnerContinent) {
+      return true;
+    }
+
+    return false;
+  };
+
+  const getCountryText = flag => (
+    <>
+      {flag.name}
+      <b>, {flag.continentName}</b>
+    </>
+  );
 
   return (
     <Layout>
       <Main>
         <Spacing bottom={2}>
-          <Title centered>
-            Which flags belong in <b>Europe</b>
-          </Title>
+          {winnerContinent && (
+            <Title centered>
+              Which flags belong in <b>{winnerContinent}</b>
+            </Title>
+          )}
         </Spacing>
 
         <div className={styles.flagsContainer}>
           {flags.map(flag => (
             <Flag
               key={flag.id}
-              wrong={validated && (wrongId === flag.id)}
+              wrong={validated && (isItWrong(flag))}
               hideText={!validated}
               disabled={validated}
               selected={selectedOptions[flag.id]}
-              countryCode={flag.countryCode}
-              text={
-                wrongId === flag.id
-                  ? <b>{getCountryText(flag)}</b>
-                  : getCountryText(flag)
-              }
+              alpha2Code={flag.alpha2Code}
               onClick={() => setOptionSelection(
                 flag.id,
                 !selectedOptions[flag.id]
               )}
-            />
+            >
+              {getCountryText(flag)}
+            </Flag>
           ))}
         </div>
 
