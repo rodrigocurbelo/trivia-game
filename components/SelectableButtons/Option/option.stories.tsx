@@ -9,6 +9,23 @@ storiesOf('selectable-buttons/Option', module)
   .add('With text', () => {
     return <Option text="I'm being added using the 'text' property" />;
   })
+  .add('Wrong!', () => {
+    return (
+      <>
+        <Option selected wrong text="I'm selected and wrong" />
+        <Option text="I'm right" />
+        <Option wrong text="I'm not selected and wrong" />
+      </>
+    );
+  })
+  .add('Disabled', () => {
+    return (
+      <>
+        <Option disabled text="I'm disabled" />
+        <Option wrong disabled text="I'm wrong and disabled" />
+      </>
+    );
+  })
   .add('One selected', () => {
     return (
       <>

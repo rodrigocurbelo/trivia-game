@@ -4,25 +4,40 @@ import classNames from 'classnames';
 import Spacing from '../../Core/Spacing';
 import styles from './styles.scss';
 import Text from '../../Core/Text';
+import { onClickAndEnterPress } from '../../../shared/helpers/accessibility';
 
 type Props = {
   text?: string;
+  wrong?: boolean;
+  onClick?: () => void;
   children?: React.ReactNode;
   selected?: boolean;
+  disabled?: boolean;
   centeredText?: boolean;
 };
 
 export default function Option({
   text,
+  wrong,
+  onClick,
   children,
+  disabled,
+  selected,
   centeredText,
-  selected
 }: Props) {
   return (
     <Spacing allSides={2}>
       <div
+        {...onClickAndEnterPress(() => !disabled && onClick())}
         className={
-          classNames(styles.container, { [styles.selected]: selected })
+          classNames(
+            styles.container,
+            {
+              [styles.wrong]: wrong,
+              [styles.selected]: selected,
+              [styles.disabled]: disabled,
+            }
+          )
         }
       >
         {children || <Text centered={centeredText}>{text}</Text>}

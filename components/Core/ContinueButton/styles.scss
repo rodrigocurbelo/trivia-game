@@ -1,0 +1,33 @@
+@import '../../../shared/styles/constants/colors';
+@import '../../../shared/styles/constants/shadows';
+@import '../../../shared/styles/constants/animations';
+
+.button {
+  width: 250px;
+  cursor: pointer;
+  display: flex;
+  min-height: 48px;
+  align-items: center;
+  border-radius: 5px;
+  justify-content: center;
+  transition: background-color .3s;
+  background-color: $secondary-color;
+  animation: enter-from-bottom .3s forwards;
+  @include large-shadow;
+
+  &:hover {
+    background-color: lighten($secondary-color, 3%);
+  }
+
+  &.positiveColor {
+    background-color: $positive-color;
+
+    &:hover {
+      background-color: lighten($positive-color, 3%);
+    }
+  }
+
+  @media only screen and (max-width: 480px) {
+    width: 200px;
+  }
+}

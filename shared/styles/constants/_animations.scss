@@ -1,0 +1,18 @@
+// This mixin is separated, just in case we need to add a delay to the
+// animation. In which case, we would need to define these styles as
+// part of the pristine style definition.
+@mixin enter-from-bottom-from-mixin {
+  opacity: 0;
+  transform: translate3d(0, 50px, 0);
+}
+
+@keyframes enter-from-bottom {
+  from {
+    @include enter-from-bottom-from-mixin;
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}

@@ -9,6 +9,13 @@ storiesOf('core-ui/Text', module)
   .add('centered', () => {
     return <Text centered>This is a centered Text.</Text>;
   })
+  .add('centered and uppercase', () => {
+    return (
+      <Text centered uppercase>
+        This is a centered and uppercase Text.
+      </Text>
+    );
+  })
   .add('centered and partially bold', () => {
     return (
       <Text centered>

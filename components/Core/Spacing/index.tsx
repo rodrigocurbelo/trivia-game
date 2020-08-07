@@ -7,6 +7,7 @@
 import React from 'react';
 
 import { SPACING } from '../../../shared/constants/spacing';
+import { onClickAndEnterPress } from '../../../shared/helpers/accessibility';
 
 type Props = {
   top?: number;
@@ -14,6 +15,11 @@ type Props = {
   right?: number;
   bottom?: number;
   allSides?: number;
+  style?: React.CSSProperties;
+  onClick?: () => void;
+  className?: string;
+  styleContainer?: React.CSSProperties;
+  classNameContainer?: string;
   children?: React.ReactNode;
 };
 
@@ -22,8 +28,13 @@ export default function Spacing({
   left,
   right,
   bottom,
+  style,
+  onClick,
   allSides,
   children,
+  className,
+  styleContainer,
+  classNameContainer,
 }: Props) {
   const defineSpaceForAxis = (side) => (side ?? allSides ?? 0) * SPACING;
 
@@ -34,9 +45,17 @@ export default function Spacing({
         paddingLeft: defineSpaceForAxis(left),
         paddingRight: defineSpaceForAxis(right),
         paddingBottom: defineSpaceForAxis(bottom),
+        ...styleContainer,
       }}
+      className={classNameContainer}
     >
-      {children}
+      <div
+        style={style}
+        className={className}
+        {...onClickAndEnterPress(onClick)}
+      >
+        {children}
+      </div>
     </div>
   );
 }

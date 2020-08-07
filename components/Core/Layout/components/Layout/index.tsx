@@ -2,16 +2,20 @@
 // This will include the <head> into the final output and some
 // basic styling of body, env, etc.
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import Head from 'next/head';
 
 import styles from './styles.scss';
 
-type Props = {
-  children?: React.ReactNode;
-};
+export default function Layout({
+  children,
+  restartMultipleOptionsGame
+}) {
+  useEffect(
+    () => () => restartMultipleOptionsGame,
+    [ restartMultipleOptionsGame ]
+  );
 
-export default function Layout({ children }: Props) {
   return (
     <div className={styles.container}>
       <Head>
