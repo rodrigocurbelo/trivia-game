@@ -1,0 +1,35 @@
+@import '../../../shared/styles/constants/flags';
+@import '../../../shared/styles/constants/options';
+
+.wrapper {
+  overflow-y: auto;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.flagsContainer {
+  max-width: $flag-width * 3.5;
+}
+
+.optionsContainer {
+  max-width: $option-width * 2.5;
+}
+
+.pointsContainer {
+  animation: points-container-enter .3s forwards;
+}
+
+@keyframes points-container-enter {
+  from {
+    max-height: 0;
+  }
+
+  to {
+    max-height: 100px;
+  }
+
+}

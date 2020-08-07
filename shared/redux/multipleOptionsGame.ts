@@ -35,10 +35,13 @@ export function setOptionSelection(id: string, selected: boolean) {
   };
 }
 
-export function setValidated(validated: boolean) {
+export function setValidated(data, isItWrong) {
   return {
     type: CHANGE_VALIDATION,
-    payload: validated,
+    payload: {
+      validated: true,
+      correctOnes: data.map(isItWrong).filter(wrong => !wrong).length,
+    },
   };
 }
 
@@ -49,6 +52,7 @@ export function restartMultipleOptionsGame() {
 const initialState = {
   countries: [],
   validated: false,
+  correctOnes: 0,
   selectedOptions: {},
   winnerContinent: null,
 };
@@ -70,7 +74,7 @@ export default function (state = initialState, action) {
     case CHANGE_VALIDATION:
       return {
         ...state,
-        validated: action.payload,
+        ...action.payload,
       };
 
     case RESTART_GAME:

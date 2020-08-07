@@ -1,14 +1,7 @@
-import React, { useEffect } from 'react';
-import { useRouter } from 'next/router';
+import React from 'react';
 
-import styles from './styles.scss';
-import Main from '../../../../components/Core/Main';
-import Title from '../../../../components/Core/Title';
-import Layout from '../../../../components/Core/Layout';
-import Option from '../../../../components/SelectableButtons/Option';
-import Spacing from '../../../../components/Core/Spacing';
-import ContinueButton from '../../../../components/Core/ContinueButton';
-import * as routes from '../../../../shared/constants/routes';
+import { GameTypes } from '../../../../shared/constants/general';
+import MultipleOptionsGame from '../../../../components/Core/MultipleOptionsGame';
 
 export default function Capitals({
   setValidated,
@@ -17,18 +10,12 @@ export default function Capitals({
   multipleOptionsGame: {
     countries,
     validated,
+    correctOnes,
     winnerContinent,
     selectedOptions,
   },
 }) {
-  useEffect(() => {
-    loadCountries();
-  }, [ loadCountries ]);
-
-  const router = useRouter();
   const getCountryText = country => `, ${country.name}, ${country.continentName}`;
-
-  const wrongId = 1;
 
   const isItWrong = country => {
     const isItSelected = selectedOptions[country.id];
@@ -38,48 +25,19 @@ export default function Capitals({
   };
 
   return (
-    <Layout>
-      <Main>
-        <Spacing bottom={2}>
-          {winnerContinent && (
-            <Title centered>
-              Which capitals belong in <b>{winnerContinent}</b>
-            </Title>
-          )}
-        </Spacing>
-
-        <div className={styles.optionsWrapper}>
-          <div className={styles.optionsContainer}>
-            {countries.map(country => (
-              <Option
-                key={country.id}
-                wrong={validated && wrongId === country.id}
-                disabled={validated}
-                selected={selectedOptions[country.id]}
-                centeredText
-                onClick={() => setOptionSelection(
-                  country.id,
-                  !selectedOptions[country.id]
-                )}
-              >
-                {country.capital}
-
-                {validated && (
-                  isItWrong(country)
-                    ? <b>{getCountryText(country)}</b>
-                    : getCountryText(country)
-                )}
-              </Option>
-            ))}
-          </div>
-        </div>
-
-        <ContinueButton
-          onValidateClick={() => setValidated(true)}
-          onContinueClick={() => router.push(routes.MENU)}
-          isValidate={!validated}
-        />
-      </Main>
-    </Layout>
+    <MultipleOptionsGame
+      data={countries}
+      kind={GameTypes.Options}
+      title={`Which cities belong in ${winnerContinent}`}
+      getText={getCountryText}
+      loadData={loadCountries}
+      isItWrong={isItWrong}
+      validated={validated}
+      correctOnes={correctOnes}
+      setValidated={setValidated}
+      winnerContinent={winnerContinent}
+      selectedOptions={selectedOptions}
+      setOptionSelection={setOptionSelection}
+    />
   );
 }
